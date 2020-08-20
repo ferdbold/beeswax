@@ -12,10 +12,4 @@ AMainGameMode::AMainGameMode(const FObjectInitializer& ObjectInitializer)
 	GameStateClass = AMainGameState::StaticClass();
 	PlayerControllerClass = AMainPlayerController::StaticClass();
 	PlayerStateClass = AMainPlayerState::StaticClass();
-
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPerson/Blueprints/ThirdPersonCharacter"));
-	if (PlayerPawnBPClass.Class != nullptr)
-	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
 }
