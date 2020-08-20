@@ -10,5 +10,5 @@ class AMainGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	AMainGameMode();
+	AMainGameMode(const FObjectInitializer& ObjectInitializer);
 };

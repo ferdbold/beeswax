@@ -3,12 +3,13 @@
 #include "UObject/ConstructorHelpers.h"
 
 #include "Beeswax/Actors/MainPlayerCharacter.h"
+#include "Beeswax/GameModes/Main/MainGameState.h"
+#include "Beeswax/GameModes/Main/MainPlayerController.h"
+#include "Beeswax/GameModes/Main/MainPlayerState.h"
 
-AMainGameMode::AMainGameMode()
+AMainGameMode::AMainGameMode(const FObjectInitializer& ObjectInitializer)
 {
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPerson/Blueprints/ThirdPersonCharacter"));
-	if (PlayerPawnBPClass.Class != nullptr)
-	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-	}
+	GameStateClass = AMainGameState::StaticClass();
+	PlayerControllerClass = AMainPlayerController::StaticClass();
+	PlayerStateClass = AMainPlayerState::StaticClass();
 }
