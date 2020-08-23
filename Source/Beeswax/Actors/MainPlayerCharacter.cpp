@@ -1,22 +1,19 @@
 #include "Beeswax/Actors/MainPlayerCharacter.h"
 
-#include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/InputComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
-#include "GameFramework/SpringArmComponent.h"
-#include "HeadMountedDisplayFunctionLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
-AMainPlayerCharacter::AMainPlayerCharacter()
+#include "Beeswax/Actors/FollowCamera.h"
+
+void AMainPlayerCharacter::BeginPlay()
 {
-	// Create a camera boom (pulls in towards the player if there is a collision)
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
+	Super::BeginPlay();
 
-	// Create a follow camera
-	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
-	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
+	MainCamera = Cast<AFollowCamera>(UGameplayStatics::GetActorOfClass(this, AFollowCamera::StaticClass()));
+	if (MainCamera)
+	{
+		MainCamera->AddTarget(this);
+	}
 }
 
 void AMainPlayerCharacter::OnMoveForward(float Value)
