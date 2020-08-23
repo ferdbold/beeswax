@@ -4,8 +4,6 @@
 #include "GameFramework/Character.h"
 #include "MainPlayerCharacter.generated.h"
 
-class AFollowCamera;
-
 UCLASS(config=Game)
 class AMainPlayerCharacter : public ACharacter
 {
@@ -13,13 +11,11 @@ class AMainPlayerCharacter : public ACharacter
 
 protected:
 	void BeginPlay() override;
+	void Destroyed() override;
 
 	UFUNCTION(BlueprintCallable, Category="Input")
 	void OnMoveForward(float Value);
 
 	UFUNCTION(BlueprintCallable, Category="Input")
 	void OnMoveRight(float Value);
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
-	AFollowCamera* MainCamera;
 };

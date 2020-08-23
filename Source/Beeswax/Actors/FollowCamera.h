@@ -13,6 +13,7 @@ public:
 	void Tick(float DeltaSeconds) override;
 
 	void AddTarget(AActor* Target);
+	void RemoveTarget(AActor* Target);
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Targeting")

@@ -24,3 +24,8 @@ void AFollowCamera::AddTarget(AActor* Target)
 {
 	Targets.Add(Target);
 }
+
+void AFollowCamera::RemoveTarget(AActor* Target)
+{
+	Targets.Remove(Target);
+}
