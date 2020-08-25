@@ -8,5 +8,10 @@ UCLASS()
 class BEESWAX_API AMainPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
+public:
+	AMainPlayerController();
+
+protected:
+	void BeginPlay() override;
 };

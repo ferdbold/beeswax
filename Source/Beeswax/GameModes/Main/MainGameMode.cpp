@@ -1,8 +1,5 @@
 #include "Beeswax/GameModes/Main/MainGameMode.h"
 
-#include "UObject/ConstructorHelpers.h"
-
-#include "Beeswax/Actors/MainPlayerCharacter.h"
 #include "Beeswax/GameModes/Main/MainGameState.h"
 #include "Beeswax/GameModes/Main/MainPlayerController.h"
 #include "Beeswax/GameModes/Main/MainPlayerState.h"
