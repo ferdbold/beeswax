@@ -24,8 +24,6 @@ void AFollowCamera::Tick(float DeltaSeconds)
 
 void AFollowCamera::UpdatePosition()
 {
-	const FVector CurrentLocation = GetActorLocation();
-
 	FVector2D ViewportSize;
 	GetWorld()->GetGameViewport()->GetViewportSize(ViewportSize);
 	
@@ -36,12 +34,11 @@ void AFollowCamera::UpdatePosition()
 
 	// A positive delta means targets are outside of the deadzone and we need to zoom out
 	// Negative means we need to zoom in
-	float WorstDeltaToDeadzone = -9999999999999999.f;
+	float WorstDeltaToDeadzone = -FLT_MAX;
 
 	for (const auto* Target : _Targets)
 	{
 		FVector TargetPosition = Target->GetActorLocation();
-		TargetPosition.Z += _CameraHeight; // trick camera into targeting actors higher than they actually are to retain pitch
 
 		FVector2D ScreenPosition;
 		UGameplayStatics::ProjectWorldToScreen(GetWorld()->GetFirstPlayerController(), TargetPosition, ScreenPosition, false);
@@ -50,13 +47,13 @@ void AFollowCamera::UpdatePosition()
 		ScreenPosition.X /= ViewportSize.X; 
 		ScreenPosition.Y /= ViewportSize.Y;
 
-		float DeltaToDeadzone = FMath::Abs(ScreenPosition.X) - _Deadzone.X;
+		const float DeltaToDeadzone = FMath::Max(FMath::Abs(ScreenPosition.X) - _Deadzone.X, FMath::Abs(ScreenPosition.Y) - _Deadzone.Y);
 		WorstDeltaToDeadzone = FMath::Max(WorstDeltaToDeadzone, DeltaToDeadzone);
 
 		TargetAverage += TargetPosition;
 	}
 	TargetAverage /= _Targets.Num();
-	SetActorLocation(FVector(CurrentLocation.X, TargetAverage.Y, TargetAverage.Z));
+	SetActorLocation(FVector(TargetAverage.X + _CameraOffset.X, TargetAverage.Y, TargetAverage.Z + _CameraOffset.Y));
 
 	/** 2. Set camera zoom */
 

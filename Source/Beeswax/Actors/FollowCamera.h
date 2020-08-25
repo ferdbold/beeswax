@@ -24,17 +24,17 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Targeting")
 	TArray<AActor*> _Targets;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Targeting")
-	float _CameraHeight = 450.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Targeting")
+	FVector2D _CameraOffset { -800.f, 450.f };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Zoom")
-	FVector2D _Deadzone;
+	FVector2D _Deadzone { 0.8, 0.8 };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Zoom")
-	FVector2D _ZoomLimits;
+	FVector2D _ZoomLimits { 0.f, 1500.f };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Zoom")
-	float _ZoomSpeed;
+	float _ZoomSpeed { 200.f };
 
 private:
 	void UpdatePosition();
