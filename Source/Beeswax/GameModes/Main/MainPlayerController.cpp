@@ -6,6 +6,11 @@
 
 #include "Beeswax/Actors/FollowCamera.h"
 
+AMainPlayerController::AMainPlayerController()
+{
+	bAutoManageActiveCameraTarget = false;
+}
+
 void AMainPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -14,12 +19,4 @@ void AMainPlayerController::BeginPlay()
 	{
 		SetViewTarget(MainCamera);
 	}
-}
-
-void AMainPlayerController::ClientReset_Implementation()
-{
-	ResetCameraMode();
-
-	bPlayerIsWaiting = (PlayerState == nullptr) || !PlayerState->IsOnlyASpectator();
-	ChangeState(NAME_Spectating);
 }
