@@ -9,6 +9,9 @@ class AMainPlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+public:
+	FORCEINLINE int GetDefaultMaxHealth() const { return DefaultMaxHealth; }
+
 protected:
 	void BeginPlay() override;
 	void Destroyed() override;
@@ -18,4 +21,7 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category="Input")
 	void OnMoveRight(float Value);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attributes", Meta=(ClampMin=0))
+	int DefaultMaxHealth{ 0 };
 };

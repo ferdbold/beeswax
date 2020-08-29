@@ -10,24 +10,22 @@ class BEESWAX_API AMainPlayerState : public APlayerState
 	GENERATED_BODY()
 
 public:
-	AMainPlayerState();
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FORCEINLINE int GetHealth() const { return _Health; }
+	FORCEINLINE int GetHealth() const { return Health; }
+	FORCEINLINE void SetHealth(int value) { Health = value; }
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FORCEINLINE int GetMaxHealth() const { return _MaxHealth; }
+	FORCEINLINE int GetMaxHealth() const { return MaxHealth; }
+	FORCEINLINE void SetMaxHealth(int value) { MaxHealth = value; }
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health", ReplicatedUsing=OnHealthChanged, Meta=(ClampMin=0))
-	int _Health{ 0 };
+	int Health{ 0 };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health", ReplicatedUsing=OnMaxHealthChanged, Meta=(ClampMin=0))
-	int _MaxHealth{ 0 };
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health", Meta=(ClampMin=0))
-	int _DefaultMaxHealth{ 0 };
+	int MaxHealth{ 0 };
 
 	UFUNCTION(BlueprintNativeEvent)
 	void OnHealthChanged();
